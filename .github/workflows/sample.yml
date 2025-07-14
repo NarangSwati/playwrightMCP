@@ -1,0 +1,31 @@
+name: Sample Workflow
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.54.0-noble
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci --unsafe-perm
+
+      - name: Run tests
+        run: DEBUG=pw:browser*,pw:api npm run sample
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: ${{ always() || cancelled() }}
+        with:
+          name: test-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 1  
