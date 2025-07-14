@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sample": "npx playwright test ./tests/jbhifi-computer-clearance-popularity.spec.ts --headed"
+    "sample": "npx playwright test ./tests/jbhifi-computer-clearance-popularity.spec.ts"
   },
   "keywords": [],
   "author": "",
